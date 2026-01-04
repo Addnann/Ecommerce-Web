@@ -3,6 +3,69 @@
 <html lang="en">
    <head>
     <link href="style.css" rel = "stylesheet">
+
+   <script>
+document.addEventListener("DOMContentLoaded", () => {
+    let container = document.querySelector(".product-cards-container");
+    if (!container) return;
+
+    // Layout Logic 
+    let productContainerWidth = container.offsetWidth;
+    let productCardWidth = 260;
+    let gap = 10; 
+    let productCardsPerRow = Math.floor(productContainerWidth / (productCardWidth + gap));
+    let totalCardWidth = productCardsPerRow * productCardWidth;
+    let extraSpace = productContainerWidth - totalCardWidth;
+    let marginSpacing = extraSpace / (productCardsPerRow - 1);
+    let lastElement = productCardsPerRow - 1;
+    let productSections = document.querySelectorAll(".product-section");
+
+    productSections.forEach((section) => {
+        let productCards = section.querySelectorAll(".product-card");
+        for(let i = 0; i < productCards.length; i++) {
+            if (i < productCardsPerRow) {
+                productCards[i].classList.add("action");
+                if (i === lastElement) {
+                    productCards[i].style.marginRight = "0px";
+                } else {
+                    productCards[i].style.marginRight = `${marginSpacing}px`;
+                }
+            }
+        }
+    });
+
+    //  Selectors
+    let wishlistCount = document.querySelector('#wishlist-link span'); 
+    let heartButtons = document.querySelectorAll('.heart-button');
+    let cartCount = document.querySelector('#cart-link span'); 
+    let cartButtons = document.querySelectorAll('.product-card .blue-button'); 
+
+    // Wishlist Logic 
+    heartButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            button.classList.toggle('active');
+            wishlistCount.textContent = document.querySelectorAll('.heart-button.active').length;
+        });
+    });
+
+    cartButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            button.classList.toggle('active');
+
+            let buttonText = button.textContent.trim(); 
+            
+            if (buttonText === "Add To Cart") {
+                button.textContent = "Remove";
+            } else {
+                button.textContent = "Add To Cart";
+            }
+            
+            cartCount.textContent = document.querySelectorAll('.product-card .blue-button.active').length;
+        });
+    });
+});
+</script>
+
    </head>
    <title>Adnan IT Soliotion</title>
    <body>
@@ -86,11 +149,11 @@
 
     <!-- Product Categoris -->
 
-    <div id="Product-category Conteiner">
+    <div id="Product-category Container">
         <div id="Product-category-text">
             <span class="blue-line">
             </span>
-            <span class="section-category-text">Categoris</span>
+            <span class="section-catagory-text">Categoris</span>
         </div>
         <div id="product-category-wrapper">
             <div class="product-category">
@@ -169,8 +232,102 @@
             
         </div>
     </div>
+
+<div class="product-section" id="product-section-all">
+    <div class="product-section-top-container">
+        <div class="section-category-container">
+            <div class="section-category-title-flex">
+                <span class="blue-line"></span>
+                <span class="section-category-text">All Electronics</span>
+            </div>
+            <h1>Explore Best Sellers</h1>
+        </div>
+
+        <div class="slideshow-buttons-container" data-slideshow="all">
+            <button class="slideshow-buttons prev-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+                </svg>
+            </button>
+            <button class="slideshow-buttons next-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="product-cards-container"> 
+        <ul>
+            <li class="product-card">
+                <div class="product-image-container">
+                    <img src="Hp laptop.png" alt="HP Laptop">
+                    <button class="heart-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                        </svg>
+                    </button>
+                </div> 
+                <div class="product-info-container"> 
+                    <h3>HP Gaming Laptop</h3>
+                    <p class="price">$750.00</p>
+                    <button class="blue-button">Add To Cart</button>
+                </div>
+            </li>
+
+            <li class="product-card">
+                <div class="product-image-container">
+                    <img src="watch.png" alt="Smart Watch">
+                    <button class="heart-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                        </svg>
+                    </button>
+                </div> 
+                <div class="product-info-container"> 
+                    <h3>Smart Watch</h3>
+                    <p class="price">$120.50</p>
+                    <button class="blue-button">Add To Cart</button>
+                </div>
+            </li>
+
+            <li class="product-card">
+                <div class="product-image-container">
+                    <img src="Headphones/1.webp" alt="Gaming Headphones">
+                    <button class="heart-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                        </svg>
+                    </button>
+                </div> 
+                <div class="product-info-container"> 
+                    <h3>Gaming Headphones Red</h3>
+                    <p class="price">$50.25</p>
+                    <button class="blue-button">Add To Cart</button>
+                </div>
+            </li>
+
+            <li class="product-card">
+                <div class="product-image-container">
+                    <img src="ipad.png" alt="Gaming Headphones">
+                    <button class="heart-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="product-info-container">
+                    <h3>Gaming Headphones Blue</h3>
+                    <p class="price">$55.00</p>
+                    <button class="blue-button">Add To Cart</button>
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>
 
 
+
+</div>
    </body>
 </html>
