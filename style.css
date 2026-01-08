@@ -378,12 +378,12 @@ nav{
 
 .product-cards-container ul{
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    overflow: hidden;
     gap: 25px;
-    justify-content: center;
+    justify-content: flex-start;
     list-style: none;
     padding: 0;
-    margin: 40px 0;
 }
 
 .product-card {
@@ -397,6 +397,9 @@ nav{
     width: 280px;
     transition: 0.4s;
     border: 1px solid #f1f1f1;
+}
+.product-card.active {
+    display: block;     
 }
 
 .product-card:hover {
